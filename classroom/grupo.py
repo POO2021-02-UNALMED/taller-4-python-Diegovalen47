@@ -1,37 +1,34 @@
-
-
 from classroom.asignatura import Asignatura
 from classroom.asignatura import Asignatura
 
 
 class Grupo:
 
-    grado = None
+    grado = "Grado 12"
 
-    def __init__(self, grupo="grupo ordinado", asignaturas=None, estudiantes=None):
+    def __init__(self, grupo="grupo predeterminado", asignaturas=None, estudiantes=None):
         self._grupo = grupo
         self._asignaturas = asignaturas
         self.listadoAlumnos = estudiantes
 
-    def listadoAsignaturas(self, kwargs):
+    def listadoAsignaturas(self, **kwargs):
+        asignaturas = []
         for x in kwargs.values():
-            self._asignaturas.append(Asignatura(x))
+            asignaturas.append(Asignatura(x))
+        self._asignaturas = asignaturas
 
-    def agregarAlumno(self, alumno, lista=[]):
-        if(lista is None):
-            lista.append(alumno)
+    def agregarAlumno(self, alumno, lista=None):
+        if lista is None:
+            lista = []
+        lista.append(alumno)
+        if self.listadoAlumnos is not None:
             self.listadoAlumnos = self.listadoAlumnos + lista
         else:
-            self.listadoAlumnos = [alumno]
+            self.listadoAlumnos = lista
 
     @ classmethod
-    def asignarNombre(cls, nombre="Grado 10"):
+    def asignarNombre(cls, nombre= "Grado 6"):
         cls.grado = nombre
 
-    @ classmethod
-    def asignarNombre(cls, nombre="Grado 6"):
-        cls.grado = nombre
-
-    @ classmethod
-    def asignarNombre(cls, nombre="Grado 4"):
-        cls.grado = nombre
+    def __str__(self):
+        return "Grupo de estudiantes: "+ self._grupo
